@@ -1,0 +1,59 @@
+# Configuration for DRL-based Task Scheduling
+
+# Environment Settings
+environment:
+  num_hosts: 100
+  num_tasks: 100
+  scheduling_intervals: 1000
+  interval_duration: 300  # seconds
+  
+# Edge-Cloud Infrastructure
+infrastructure:
+  edge_nodes: 30
+  cloud_nodes: 70
+  edge_cpu_range: [2, 8]  # cores
+  cloud_cpu_range: [8, 32]  # cores
+  edge_ram_range: [4, 16]  # GB
+  cloud_ram_range: [16, 128]  # GB
+  edge_bandwidth_range: [10, 100]  # Mbps
+  cloud_bandwidth_range: [100, 1000]  # Mbps
+
+# DRL Model Settings
+model:
+  input_size: 300
+  hidden_size: 256
+  num_recurrent_layers: 3
+  fc1_size: 512
+  fc2_size: 256
+  fc3_size: 128
+  fc4_size: 10000  # 100x100 for tasks and hosts
+  learning_rate: 0.001
+  batch_size: 32
+  gamma: 0.99  # discount factor
+  
+# Hyperparameters for Loss Function
+hyperparameters:
+  alpha: 0.2  # Energy weight
+  beta: 0.2   # Response time weight
+  gamma: 0.2  # Migration time weight
+  delta: 0.2  # Cost weight
+  epsilon: 0.2  # SLA violation weight
+  penalty_weight: 100.0
+
+# Training Settings
+training:
+  num_epochs: 100
+  train_test_split: 0.75
+  early_stopping_patience: 10
+  checkpoint_interval: 5
+  
+# Dataset
+dataset:
+  path: "data/bitbrain_traces/"
+  train_days: 10
+  test_days: 1
+
+# Results
+results:
+  save_path: "data/results/"
+  plot_metrics: true
